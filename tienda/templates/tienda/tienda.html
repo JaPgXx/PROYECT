@@ -1,0 +1,40 @@
+
+
+
+
+{% extends "ProyectoWebApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+  <div style="float:right;">
+    {% if request.user.is_authenticated %}
+      {% include "carro/widget.html" %}
+    {% else %}
+      <div class="alert alert-danger text-center">Login para ver Carro</div>
+    {% endif %}
+  </div>
+
+  <div class="row">
+    {% for producto in productos %}
+      <div class="col-md-3">
+        <div class="card" style="width: 100%; margin: 5px 5px;">
+          <img src="{{ VEGETTA.jpg }}" class="card-img-top" alt="{{ producto.nombre }}">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">{{ producto.precio }}&nbsp;€</p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="{% url 'carro:agregar' producto.id %}" class="btn btn-success">Agregar al carro</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}
